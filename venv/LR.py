@@ -6,6 +6,7 @@
 pytorch 实现线性回归
 """
 import torch
+from torch import nn
 # 导入pytorch的激励函数
 import torch.nn.functional as F
 import matplotlib.pyplot as plt
@@ -19,7 +20,8 @@ plt.ion()
 plt.show()
 
 """
-创建神经网络
+创建神经网络,
+方法一: 通过定义一个Net类来创建神经网络
 """
 class Net(torch.nn.Module):
 
@@ -33,6 +35,14 @@ class Net(torch.nn.Module):
         x = F.relu(self.hidden(x))
         x = self.predict(x)
         return x
+"""
+方法二: 通过torch.nn.Sequential快速建立神经网络
+"""
+net2 = nn.Sequential(
+    nn.Linear(2,10),
+    nn.ReLU(),
+    nn.Linear(10,2)
+)
 
 net = Net(n_feature=1, n_hidden=10, n_output=1)
 # print(net)
